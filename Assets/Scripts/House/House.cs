@@ -4,6 +4,7 @@ using UnityEngine;
 public class House : MonoBehaviour
 {
     [SerializeField] private Door[] _doors;
+
     public event Action<Criminal> LeavedCriminal;
     public event Action<Criminal, Door> EnteredCriminal;
 

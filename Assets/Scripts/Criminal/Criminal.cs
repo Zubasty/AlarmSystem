@@ -1,6 +1,3 @@
 using UnityEngine;
 
-public class Criminal : MonoBehaviour
-{
-    
-}
+public class Criminal : MonoBehaviour { }

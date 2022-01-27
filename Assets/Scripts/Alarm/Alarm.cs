@@ -7,6 +7,9 @@ public class Alarm : MonoBehaviour
 {
     private House _house;
     private HashSet<Criminal> _criminalsInHouse;
+    private int _countCriminalsForOnAlarm;
+    private int _countCriminalsForOffAlarm;
+
     public event Action HouseVacated;
     public event Action HouseUnvacated;
 
@@ -14,6 +17,8 @@ public class Alarm : MonoBehaviour
     {
         _criminalsInHouse = new HashSet<Criminal>();
         _house = GetComponent<House>();
+        _countCriminalsForOnAlarm = 1;
+        _countCriminalsForOffAlarm = 0;
     }
 
     private void OnEnable()
@@ -31,7 +36,7 @@ public class Alarm : MonoBehaviour
     private void OnEnteredCriminal(Criminal criminal, Door door)
     {
         _criminalsInHouse.Add(criminal);
-        if (_criminalsInHouse.Count == 1)
+        if (_criminalsInHouse.Count == _countCriminalsForOnAlarm)
         {
             HouseUnvacated?.Invoke();
         }
@@ -40,7 +45,7 @@ public class Alarm : MonoBehaviour
     private void OnLeavedCriminal(Criminal criminal)
     {
         _criminalsInHouse.Remove(criminal);
-        if (_criminalsInHouse.Count == 0)
+        if (_criminalsInHouse.Count == _countCriminalsForOffAlarm)
         {
             HouseVacated?.Invoke();
         }
